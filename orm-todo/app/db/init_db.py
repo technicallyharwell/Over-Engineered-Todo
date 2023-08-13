@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def init_db(db: Session) -> None:
     """
     Initialize the database with the initial data.
-    NOTE: tables should already be created with alembic migrations
+    NOTE: tables should already be created with alembic_old migrations
     :param db:
     :return:
     """
@@ -21,5 +21,6 @@ def init_db(db: Session) -> None:
             key=entry["key"],
             is_complete=entry["is_complete"]
         )
+        logger.info(f"Creating todo entry {entry_in}")
         crud.todo_entry.create(db, obj_in=entry_in)
         logger.info(f"Created todo entry with key {entry['key']}")
