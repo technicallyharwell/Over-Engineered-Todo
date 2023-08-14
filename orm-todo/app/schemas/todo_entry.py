@@ -1,16 +1,13 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class TodoEntryBase(BaseModel):
-    id: int
     key: str
-    is_complete: bool
 
 
 class TodoEntryCreate(TodoEntryBase):
-    id: int
     key: str
-    is_complete: bool
 
 
 class TodoEntryUpdate(TodoEntryBase):
