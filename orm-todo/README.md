@@ -15,3 +15,8 @@
 ## DB Helpers
 - `backend_pre_start.py` creates a db session and executes `SELECT 1` to validate connection
 - `initial_data.py` uses `init_db.py` to create the db and then populates it with initial data
+
+### For Containerizing:
+- `prestart.sh` is run before the app starts and creates the db, runs migrations, and populates it with initial data
+- `run.sh` is the entrypoint for the container and runs the app
+
