@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: fastapi_backend
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    ports:
+        - "8001:8001"
+    networks:
+        - backend
+    command: /bin/bash -c "poetry run ./run.sh"
+    stdin_open: true
+    tty: true
+
+networks:
+  backend:
