@@ -1,7 +1,8 @@
 [tool.poetry]
 name = "app"
 version = "0.0.1"
-description = "Todo list with ORM"
+description = "Over Engineered Todo List App"
+readme = "README.md"
 authors = ["Robert"]
 
 [tool.poetry.dependencies]
@@ -15,3 +16,4 @@ SQLAlchemy = "^1.4.22"
 alembic = "^1.6.5"
 tenacity = "^8.0.1"
 greenlet = "^1.1.2"
+pytest = "^7.4.0"
