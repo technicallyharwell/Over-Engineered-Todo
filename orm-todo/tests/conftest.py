@@ -12,12 +12,12 @@ from app.db.base import Base
 from app.deps import get_db
 from app.main import api_router
 
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# import sys
+# import os
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./config/test.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///tests/config/test.db"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
@@ -30,7 +30,7 @@ def start_test_app():
     return app
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def app() -> Generator[FastAPI, Any, None]:
     """
     Fixture to create a new FastAPI app and database for each test
@@ -42,7 +42,7 @@ def app() -> Generator[FastAPI, Any, None]:
     Base.metadata.drop_all(bind=engine)
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def db_session(app: FastAPI) -> Generator[SessionTesting, Any, None]:
     """
     Fixture for db sessions for each test
@@ -56,7 +56,7 @@ def db_session(app: FastAPI) -> Generator[SessionTesting, Any, None]:
     connection.close()
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def client(app: FastAPI, db_session: SessionTesting) -> Generator[TestClient, Any, None]:
     """
     Fixture for test client against the app for each test
