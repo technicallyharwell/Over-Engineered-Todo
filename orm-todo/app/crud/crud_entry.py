@@ -1,11 +1,12 @@
 from typing import Dict, Union, Any
 
 from sqlalchemy.orm import Session
-from fastapi.encoders import jsonable_encoder
 
 from app.crud.base import CRUDBase
 from app.models.ToDoEntry import ToDoEntry
 from app.schemas.todo_entry import TodoEntryCreate, TodoEntryUpdate
+
+# TODO - look at jsonable_encoder
 
 
 class CRUDToDoEntry(CRUDBase[ToDoEntry, TodoEntryCreate, TodoEntryUpdate]):
