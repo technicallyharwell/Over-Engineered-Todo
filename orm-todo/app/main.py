@@ -50,7 +50,8 @@ def fetch_todo_entry(
     """
     result = crud.todo_entry.get(db=db, key=entry_key)
     if not result:
-        raise HTTPException(status_code=404, detail=f"Entry not found for key {entry_key}")
+        raise HTTPException(status_code=404,
+                            detail=f"Entry not found for key {entry_key}")
     return result
 
 
@@ -83,7 +84,8 @@ def update_entry(
     entry = crud.todo_entry.get(db=db, key=entry_in.key)
     print(f"entry: {entry} for PUT", flush=True)
     if not entry:
-        raise HTTPException(status_code=404, detail=f"Entry not found for key {entry_in.key}")
+        raise HTTPException(status_code=404,
+                            detail=f"Entry not found for key {entry_in.key}")
     entry = crud.todo_entry.update(db=db, db_obj=entry, obj_in=entry_in)
     return entry
 
@@ -101,7 +103,8 @@ def delete_entry(
     """
     entry = crud.todo_entry.get(db=db, key=entry_key)
     if not entry:
-        raise HTTPException(status_code=404, detail=f"Entry not found for key {entry_key}")
+        raise HTTPException(status_code=404,
+                            detail=f"Entry not found for key {entry_key}")
     entry = crud.todo_entry.remove(db=db, id=entry.id)
     return entry
 

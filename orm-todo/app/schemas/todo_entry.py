@@ -1,5 +1,4 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Optional
 
 
 class TodoEntryBase(BaseModel):
@@ -16,7 +15,8 @@ class TodoEntryUpdate(TodoEntryBase):
 
 
 """
-We separate these so that in the future we can easily modify which props are returned to the client
+We separate these so that in the future we can easily 
+modify which props are returned to the client
 """
 
 

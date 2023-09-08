@@ -57,7 +57,8 @@ def db_session(app: FastAPI) -> Generator[SessionTesting, Any, None]:
 
 
 @pytest.fixture(scope="function")
-def client(app: FastAPI, db_session: SessionTesting) -> Generator[TestClient, Any, None]:
+def client(app: FastAPI, db_session: SessionTesting) \
+        -> Generator[TestClient, Any, None]:
     """
     Fixture for test client against the app for each test
     """

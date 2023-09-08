@@ -13,7 +13,7 @@ def test_get_entry(client, monkeypatch):
     def mock_get(*args, **kwargs):
         return test_entry
 
-    # the CRUDBase get method is mocked so that the database is not written to during testing
+    # CRUDBase get method is mocked so that the database is not written to for testing
     monkeypatch.setattr(CRUDBase, "get", mock_get)
 
     response = client.get("/entry/first")
@@ -25,7 +25,7 @@ def test_get_entry_not_found(client, monkeypatch):
     def mock_get(*args, **kwargs):
         return None
 
-    # the CRUDBase get method is mocked so that the database is not written to during testing
+    # CRUDBase get method is mocked so that the database is not written to for testing
     monkeypatch.setattr(CRUDBase, "get", mock_get)
 
     response = client.get("/entry/first")
