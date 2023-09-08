@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
@@ -26,9 +26,8 @@ class TodoEntryInDB(TodoEntryBase):
     key: str
     is_complete: bool
 
-    # Pydantic's orm_mode will tell the model to read the data even if it's not a dict
-    class Config:
-        orm_mode = True
+    # the Config class approach was deprecated in favor of ConfigDict in pydantic 2.0
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Return these props to the client
@@ -36,5 +35,3 @@ class TodoEntry(TodoEntryInDB):
     id: int
     key: str
     is_complete: bool
-
-
