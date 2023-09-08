@@ -5,8 +5,11 @@ cp -r ./alembic ./tests/config/alembic
 
 cd ./tests/config && alembic upgrade head
 
-# call tests
-poetry run pytest --disable-warnings
+# @as_declarative decorator was deprecated with SQLAlchemy 2.0 release
+# TODO - refactor SQLA usage to be compatible with 2.0
+export SQLALCHEMY_SILENCE_UBER_WARNING=1
+
+poetry run pytest
 
 # cleanup
 rm -rf ./alembic
