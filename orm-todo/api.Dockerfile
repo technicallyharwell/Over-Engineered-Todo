@@ -26,6 +26,9 @@ COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 ENV PYTHONPATH="${PYTHONPATH}:/api"
 
+# Disable stdout buffering
+ENV PYTHONUNBUFFERED=1
+
 # Set the working directory
 WORKDIR /api
 
