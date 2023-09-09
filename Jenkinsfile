@@ -1,4 +1,11 @@
 pipeline {
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+        timeout(time: 30, unit: 'MINUTES')
+        timestamps()
+        ansicolor('xterm')
+    }
     parameters {
         gitParameter branchFilter: 'origin/(.*)', name: 'BRANCH', type: 'PT_BRANCH'
     }
@@ -16,13 +23,6 @@ pipeline {
                 sh 'whoami'
             }
         }
-        stage('Create virtualenv') {
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'pwd'
-                }
-            }
-        }
         stage('Lint') {
             steps {
                 sh """
@@ -30,8 +30,10 @@ pipeline {
                     pip install --user -r config/build/lint-requirements.txt
                     echo "linting..."
                     python -m ruff .
+                    echo "uninstalling linting dependencies..."
+                    pip uninstall --yes -r config/build/lint-requirements.txt
                     echo "finished linting"
-                """
+                    """
             }
         }
         stage('Test') {
