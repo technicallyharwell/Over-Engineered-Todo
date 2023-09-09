@@ -29,7 +29,7 @@ pipeline {
                     echo "installing linting dependencies..."
                     pip install --user -r config/build/lint-requirements.txt
                     echo "linting..."
-                    ruff .
+                    python -m ruff .
                     echo "finished linting"
                 """
             }
