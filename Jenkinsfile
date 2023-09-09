@@ -16,7 +16,7 @@ pipeline {
         stage('Build CI deps') {
             steps {
                 echo 'Building..'
-                sh 'pip install -r config/build/ci-requirements.txt'
+                sh 'pip install --target ${env.WORKSPACE} -r config/build/ci-requirements.txt'
                 echo 'Installed all CI dependencies'
             }
         }
