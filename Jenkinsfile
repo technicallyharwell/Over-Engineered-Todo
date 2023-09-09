@@ -1,7 +1,9 @@
 pipeline {
+    parameters {
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+    }
     environment {
-        CI = 'true'
-        BRANCH_NAME = "${GIT_BRANCH.split('/')[1]}"
+        GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
     agent none
     stages {
@@ -9,7 +11,7 @@ pipeline {
             agent any
             steps {
                 echo 'Checking out...'
-                checkout scm
+                git branch: "${params.BRANCH}", url: "${GIT_REPO_URL}"
             }
         }
         stage('Build CI deps') {
