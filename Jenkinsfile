@@ -20,7 +20,6 @@ pipeline {
                 checkout scm
                 sh 'which python'
                 sh 'which pip'
-                sh 'whoami'
             }
         }
         stage('Lint') {
