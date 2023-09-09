@@ -1,0 +1,5 @@
+target-version = "py311"
+
+[per-file-ignores]
+# Ignore import violations in __init__.py files.
+"__init__.py" = ["E402", "F401"]
