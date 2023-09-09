@@ -14,7 +14,6 @@ pipeline {
                 sh 'which python'
                 sh 'which pip'
                 sh 'whoami'
-                sh 'pwd'
             }
         }
         stage('Create virtualenv') {
