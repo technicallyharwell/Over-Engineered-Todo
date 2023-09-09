@@ -4,7 +4,7 @@ pipeline {
         disableConcurrentBuilds()
         timeout(time: 30, unit: 'MINUTES')
         timestamps()
-        ansicolor('xterm')
+        ansiColor('xterm')
     }
     parameters {
         gitParameter branchFilter: 'origin/(.*)', name: 'BRANCH', type: 'PT_BRANCH'
