@@ -22,6 +22,13 @@ pipeline {
                 echo 'Installed all CI dependencies'
             }
         }
+        stage('Lint') {
+            steps {
+                echo 'Linting..'
+                sh 'ruff check .'
+                echo 'Linting complete'
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Testing..'
