@@ -17,7 +17,7 @@ pipeline {
         stage('Create virtualenv') {
             steps {
                 echo 'Creating virtualenv..'
-                sh 'python3 -m venv venv'
+                sh 'python -m venv venv'
                 echo 'Created virtualenv'
                 echo 'Activating virtualenv..'
                 sh 'source venv/bin/activate'
