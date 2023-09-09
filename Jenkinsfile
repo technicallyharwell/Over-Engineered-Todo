@@ -19,29 +19,26 @@ pipeline {
         stage('Create virtualenv') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
-                    echo 'Creating virtualenv..'
-                    sh 'python -m venv venv'
-                    echo 'Created virtualenv'
-                    echo 'Activating virtualenv..'
-                    sh 'source venv/bin/activate'
-                    echo 'Activated virtualenv'
-                    sh 'which pip'
-                    sh 'which python'
+                    sh 'pwd'
                 }
             }
         }
         stage('Build CI deps') {
             steps {
-                echo 'Building..'
-                sh 'pip install --user -r config/build/ci-requirements.txt'
-                echo 'Installed all CI dependencies'
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    echo 'Building..'
+                    sh 'pip install --user -r config/build/ci-requirements.txt'
+                    echo 'Installed all CI dependencies'
+                }
             }
         }
         stage('Lint') {
             steps {
-                echo 'Linting..'
-                sh 'ruff check .'
-                echo 'Linting complete'
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    echo 'Linting..'
+                    sh 'ruff check .'
+                    echo 'Linting complete'
+                }
             }
         }
         stage('Test') {
