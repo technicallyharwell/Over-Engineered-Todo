@@ -23,23 +23,15 @@ pipeline {
                 }
             }
         }
-        stage('Build CI deps') {
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'pwd'
-                    echo 'Building..'
-                    sh 'pip install --user -r config/build/ci-requirements.txt'
-                    echo 'Installed all CI dependencies'
-                }
-            }
-        }
         stage('Lint') {
             steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'pwd'
-                    echo 'Linting..'
-                    sh 'ruff check .'
-                    echo 'Linting complete'
+                sh """
+                    echo "installing linting dependencies..."
+                    pip install --user -r config/build/lint-requirements.txt
+                    echo "linting..."
+                    ruff .
+                    echo "finished linting"
+                """
                 }
             }
         }
