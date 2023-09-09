@@ -1,11 +1,22 @@
-# fastapi-templates
-Quick references to hit the ground running with FastAPI backend.
+# orm-todo
 
+## Quickstart
+- `pip install poetry`
+- `poetry install`
+- `poetry run prestart.sh`
+  - validate that the db `test.db` was created
+- 
 
-# Contents
+## Alembic usage
+- Run `alembic upgrade head` to upgrade to the latest migration.
+- Run `alembic revision --autogenerate -m "message"` to generate a new migration.
+- Run `alembic downgrade -1` to downgrade the database by one migration.
 
-### basic-todo
-Start here if you want to get a feel for FastAPI. This is a basic todo api with no database.
+## DB Helpers
+- `backend_pre_start.py` creates a db session and executes `SELECT 1` to validate connection
+- `initial_data.py` uses `init_db.py` to create the db and then populates it with initial data
 
-### orm-todo
-Fully featured api with SQLAlchemy ORM, Alembic migrations, pydantic validations, pytest, and containerization.
+### For Containerizing:
+- `prestart.sh` is run before the app starts and creates the db, runs migrations, and populates it with initial data
+- `run.sh` is the entrypoint for the container and runs the app
+

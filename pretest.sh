@@ -9,9 +9,11 @@ cd ./tests/config && alembic upgrade head
 # TODO - refactor SQLA usage to be compatible with 2.0
 export SQLALCHEMY_SILENCE_UBER_WARNING=1
 
+cd ../../
 poetry run pytest
 
 # cleanup
+cd ./tests/config
 rm -rf ./alembic
 rm ./alembic.ini
 rm ./test.db
