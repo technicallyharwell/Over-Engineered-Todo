@@ -32,7 +32,6 @@ pipeline {
                     ruff .
                     echo "finished linting"
                 """
-                }
             }
         }
         stage('Test') {
