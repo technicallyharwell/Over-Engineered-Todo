@@ -1,5 +1,5 @@
 from app.crud.base import CRUDBase
-import os
+
 
 def test_root_endpoint(client):
     response = client.get("/")
