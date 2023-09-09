@@ -1,9 +1,10 @@
 pipeline {
     parameters {
-        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+        gitParameter branchFilter: 'origin/(.*)', name: 'BRANCH', type: 'PT_BRANCH'
     }
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
+        WORKSPACE = sh(returnStdout: true, script: 'pwd').trim()
     }
     agent any
     stages {
