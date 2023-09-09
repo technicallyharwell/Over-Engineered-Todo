@@ -4,20 +4,33 @@ pipeline {
     }
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
-        WORKSPACE = sh(returnStdout: true, script: 'pwd').trim()
+        PATH = '/var/lib/jenkins/:$PATH'
     }
     agent any
     stages {
         stage('Checkout') {
             steps {
                 echo 'Checking out...'
-                git branch: "${params.BRANCH}", url: "${GIT_REPO_URL}"
+                checkout scm
+                echo 'Checked out for build ${BRANCH} with tag ${BUILD_TAG}'
+            }
+        }
+        stage('Create virtualenv') {
+            steps {
+                echo 'Creating virtualenv..'
+                sh 'python3 -m venv ${BUILD_TAG}'
+                echo 'Created virtualenv'
+                echo 'Activating virtualenv..'
+                sh 'source ${BUILD_TAG}/bin/activate'
+                echo 'Activated virtualenv'
+                sh 'which pip'
+                sh 'which python'
             }
         }
         stage('Build CI deps') {
             steps {
                 echo 'Building..'
-                sh 'pip install --target ${env.WORKSPACE} -r config/build/ci-requirements.txt'
+                sh 'pip install -r config/build/ci-requirements.txt'
                 echo 'Installed all CI dependencies'
             }
         }
