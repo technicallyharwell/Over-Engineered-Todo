@@ -5,17 +5,15 @@ pipeline {
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
-    agent none
+    agent any
     stages {
         stage('Checkout') {
-            agent any
             steps {
                 echo 'Checking out...'
                 git branch: "${params.BRANCH}", url: "${GIT_REPO_URL}"
             }
         }
         stage('Build CI deps') {
-            agent any
             steps {
                 echo 'Building..'
                 sh 'pip install -r config/build/ci-requirements.txt'
