@@ -4,7 +4,6 @@ pipeline {
     }
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
-        PATH = '/var/lib/jenkins/:${PATH}'
     }
     agent any
     stages {
@@ -12,6 +11,10 @@ pipeline {
             steps {
                 echo 'Checking out...'
                 checkout scm
+                sh 'which python'
+                sh 'which pip'
+                sh 'whoami'
+                sh 'pwd'
             }
         }
         stage('Create virtualenv') {
