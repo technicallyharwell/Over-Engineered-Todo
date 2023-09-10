@@ -12,25 +12,32 @@ pipeline {
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
-    agent any
+    agent {
+        dockerfile {
+            filename 'api.Dockerfile'
+            args '-u root:root'
+        }
+    }
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out...'
                 checkout scm
-                sh 'which python'
-                sh 'which pip'
+            }
+        }
+        stage('Install') {
+        // install dependencies used throughout the pipeline
+            steps {
+                sh """
+                    poetry lock
+                    poetry install
+                    """
             }
         }
         stage('Lint') {
             steps {
                 sh """
-                    echo "installing linting dependencies..."
-                    pip install --user -r config/build/lint-requirements.txt
                     echo "linting..."
-                    python -m ruff .
-                    echo "uninstalling linting dependencies..."
-                    pip uninstall --yes -r config/build/lint-requirements.txt
+                    poetry run ruff .
                     echo "finished linting"
                     """
             }
@@ -38,11 +45,15 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
+                sh """
+                   chmod +x ./pretest.sh
+                   ./pretest.sh
+                   """
             }
         }
-        stage('Deploy') {
+        stage('Code Coverage') {
             steps {
-                echo 'Deploying....'
+                echo 'Performing code scan...'
             }
         }
     }

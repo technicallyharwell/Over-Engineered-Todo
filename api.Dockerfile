@@ -1,4 +1,4 @@
-FROM python:3.10 as py-base
+FROM python:3.11 as py-base
 
 # https://python-poetry.org/docs#ci-recommendations
 ENV POETRY_VERSION=1.5.1
@@ -33,7 +33,8 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /api
 
 # Install dependencies
-COPY pyproject.toml poetry.lock ./
+#COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml ./
 
 # Validate that the project can be built
 RUN poetry check
