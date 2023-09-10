@@ -1,6 +1,10 @@
 from app.crud.base import CRUDBase
 
 
+def validate_ci_testing_failure():
+    assert 1 == 2
+
+
 def test_root_endpoint(client):
     response = client.get("/")
     assert response.status_code == 200
