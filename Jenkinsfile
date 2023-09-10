@@ -41,7 +41,7 @@ pipeline {
             steps {
                 sh """
                     echo "linting..."
-                    python -m ruff .
+                    poetry run ruff .
                     echo "finished linting"
                     """
             }
