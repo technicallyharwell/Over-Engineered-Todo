@@ -27,12 +27,8 @@ pipeline {
         stage('Lint') {
             steps {
                 sh """
-                    echo "installing linting dependencies..."
-                    pip install --user -r config/build/lint-requirements.txt
                     echo "linting..."
                     python -m ruff .
-                    echo "uninstalling linting dependencies..."
-                    pip uninstall --yes -r config/build/lint-requirements.txt
                     echo "finished linting"
                     """
             }
