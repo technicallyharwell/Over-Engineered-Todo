@@ -56,7 +56,7 @@ pipeline {
                 SCANNER_HOME = tool 'SonarQubeScanner'
             }
             steps {
-                withSonarQubeEnv('FAPI') {
+                withSonarQubeEnv('SonarQube') {
                   sh "${SCANNER_HOME}/bin/sonar-scanner"
                 }
             }
