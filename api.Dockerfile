@@ -33,7 +33,8 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /api
 
 # Install dependencies
-COPY pyproject.toml poetry.lock ./
+#COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml ./
 
 # Validate that the project can be built
 RUN poetry check
