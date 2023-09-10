@@ -12,7 +12,9 @@ pipeline {
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
-    agent any
+    agent {
+        docker { filename api.Dockerfile }
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -38,6 +40,10 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
+                sh """
+                   chmod +x ./pretest.sh
+                   ./pretest.sh
+                   """
             }
         }
         stage('Deploy') {
