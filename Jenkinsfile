@@ -52,10 +52,12 @@ pipeline {
             }
         }
         stage('Code Coverage') {
+            environment {
+                SCANNER_HOME = tool 'SonarScanner'
+            }
             steps {
-                def scannerHome = tool 'SonarScanner';
-                withSonarQubeEnv() {
-                  sh "${scannerHome}/bin/sonar-scanner"
+                withSonarQubeEnv('FAPI') {
+                  sh "${SCANNER_HOME}/bin/sonar-scanner"
                 }
             }
         }
