@@ -53,7 +53,7 @@ pipeline {
         }
         stage('Code Coverage') {
             environment {
-                SCANNER_HOME = tool 'SonarScanner'
+                SCANNER_HOME = tool 'SonarQubeScanner'
             }
             steps {
                 withSonarQubeEnv('FAPI') {
