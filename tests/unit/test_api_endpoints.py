@@ -1,7 +1,7 @@
 from app.crud.base import CRUDBase
 
 
-def validate_ci_testing_failure():
+def test_ci_failure():
     assert 1 == 2
 
 
