@@ -21,20 +21,16 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out...'
                 checkout scm
-                sh 'which python'
-                sh 'which pip'
             }
         }
         stage('Install') {
+        // install dependencies used throughout the pipeline
             steps {
-                echo 'Installing...'
                 sh """
-                    pip install poetry==1.5.1
-                    poetry install --no-interaction --no-cache
+                    poetry lock
+                    poetry install
                     """
-                echo 'Finished installing...'
             }
         }
         stage('Lint') {
@@ -55,9 +51,9 @@ pipeline {
                    """
             }
         }
-        stage('Deploy') {
+        stage('Code Coverage') {
             steps {
-                echo 'Deploying....'
+                echo 'Performing code scan...'
             }
         }
     }
