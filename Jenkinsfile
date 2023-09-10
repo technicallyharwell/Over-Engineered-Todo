@@ -13,7 +13,7 @@ pipeline {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
     agent {
-        docker { filename api.Dockerfile }
+        dockerfile { filename 'api.Dockerfile' }
     }
     stages {
         stage('Checkout') {
