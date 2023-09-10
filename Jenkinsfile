@@ -24,6 +24,16 @@ pipeline {
                 sh 'which pip'
             }
         }
+        stage('Install') {
+            steps {
+                echo 'Installing...'
+                sh """
+                    pip install poetry==1.5.1
+                    poetry install --no-interaction --no-cache
+                    """
+                echo 'Finished installing...'
+            }
+        }
         stage('Lint') {
             steps {
                 sh """
