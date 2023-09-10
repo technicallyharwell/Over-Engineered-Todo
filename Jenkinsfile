@@ -52,8 +52,9 @@ pipeline {
             }
         }
         stage('Code Coverage') {
-            steps {
-                echo 'Performing code scan...'
+            def scannerHome = tool 'SonarScanner';
+            withSonarQubeEnv() {
+              sh "${scannerHome}/bin/sonar-scanner"
             }
         }
     }
