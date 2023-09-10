@@ -11,9 +11,13 @@ export SQLALCHEMY_SILENCE_UBER_WARNING=1
 
 cd ../../
 poetry run pytest
+test_result=$?
 
 # cleanup
 cd ./tests/config
 rm -rf ./alembic
 rm ./alembic.ini
 rm ./test.db
+
+echo "Test result: $test_result"
+exit $test_result
