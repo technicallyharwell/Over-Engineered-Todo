@@ -56,8 +56,10 @@ pipeline {
                 SCANNER_HOME = tool 'SonarQubeScanner'
             }
             steps {
-                withSonarQubeEnv('SonarQube') {
-                  sh "${SCANNER_HOME}/bin/sonar-scanner"
+                withEnv(["PATH=$SCANNER_HOME/bin:$PATH"]) {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${SCANNER_HOME}/bin/sonar-scanner"
+                    }
                 }
             }
         }
