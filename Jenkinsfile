@@ -55,13 +55,13 @@ pipeline {
             environment {
                 SCANNER_HOME = tool 'SonarQubeScanner'
             }
-            steps {
-                withEnv(["PATH=$SCANNER_HOME/bin:$PATH"]) {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "ls ${SCANNER_HOME}/bin"
-                        sh "${SCANNER_HOME}/bin/sonar-scanner"
-                    }
+            agent {
+                dockerfile {
+                    image 'sonarsource/sonar-scanner-cli:latest'
                 }
+            }
+            steps {
+                sh "sonar-scanner"
             }
         }
     }
