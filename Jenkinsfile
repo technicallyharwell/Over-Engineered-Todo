@@ -56,7 +56,7 @@ pipeline {
                 SCANNER_HOME = tool 'SonarQubeScanner'
             }
             agent {
-                dockerfile {
+                docker {
                     image 'sonarsource/sonar-scanner-cli:latest'
                 }
             }
