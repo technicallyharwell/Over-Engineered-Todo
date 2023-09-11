@@ -51,17 +51,19 @@ pipeline {
                    """
             }
         }
+    }
+    node {
         stage('Code Coverage') {
-            environment {
-                SCANNER_HOME = tool 'SonarQubeScanner'
-            }
-            steps {
-                withEnv(["PATH=$SCANNER_HOME/bin:$PATH"]) {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${SCANNER_HOME}/bin/sonar-scanner"
+                environment {
+                    SCANNER_HOME = tool 'SonarQubeScanner'
+                }
+                steps {
+                    withEnv(["PATH=$SCANNER_HOME/bin:$PATH"]) {
+                        withSonarQubeEnv('SonarQube') {
+                            sh "${SCANNER_HOME}/bin/sonar-scanner"
+                        }
                     }
                 }
-            }
         }
     }
 }
