@@ -57,7 +57,9 @@ pipeline {
                 JAVA_HOME = "usr/bin/java"
             }
             steps {
-                sh "${SCANNER_HOME}/bin/sonar-scanner"
+                withSonarQubeEnv() {
+                    sh "${SCANNER_HOME}/bin/sonar-scanner"
+                    }
             }
         }
     }
