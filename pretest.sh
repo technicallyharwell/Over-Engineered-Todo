@@ -10,7 +10,9 @@ cd ./tests/config && poetry run alembic upgrade head
 export SQLALCHEMY_SILENCE_UBER_WARNING=1
 
 cd ../../
-poetry run pytest
+#poetry run pytest
+poetry run coverage run -m pytest
+poetry run coverage xml
 test_result=$?
 
 # cleanup
