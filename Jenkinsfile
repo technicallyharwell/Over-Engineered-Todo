@@ -58,7 +58,7 @@ pipeline {
             steps {
                 withEnv(["PATH=$SCANNER_HOME/bin:$PATH"]) {
                     withSonarQubeEnv('SonarQube') {
-                        sh "${SCANNER_HOME}/bin/sonar-scanner"
+                        sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.branch.name=$BRANCH_NAME"
                     }
                 }
             }
