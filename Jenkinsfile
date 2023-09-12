@@ -54,6 +54,7 @@ pipeline {
         stage('Code Coverage') {
             environment {
                 SCANNER_HOME = tool 'SonarQubeScanner'
+                JAVA_HOME = "usr/bin/java"
             }
             steps {
                 sh "${SCANNER_HOME}/bin/sonar-scanner"
