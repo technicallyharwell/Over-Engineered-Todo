@@ -25,6 +25,7 @@ COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
 # Update PATH and PYTHONPATH in application layer
 ENV PATH="${PATH}:${POETRY_VENV}/bin:/usr/bin/java:/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin"
 ENV PYTHONPATH="${PYTHONPATH}:/api"
+ENV LD_LIBRARY_PATH="/usr/lib/jvm/java-17-openjdk-17.0.8.0.7-1.fc38.x86_64/lib:$LD_LIBRARY_PATH"
 
 # Disable stdout buffering
 ENV PYTHONUNBUFFERED=1
