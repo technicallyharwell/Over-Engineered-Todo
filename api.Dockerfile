@@ -23,7 +23,7 @@ FROM py-base as app-base
 COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
 
 # Update PATH and PYTHONPATH in application layer
-ENV PATH="${PATH}:${POETRY_VENV}/bin"
+ENV PATH="${PATH}:${POETRY_VENV}/bin:/var/lib/jenkins:/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin"
 ENV PYTHONPATH="${PYTHONPATH}:/api"
 
 # Disable stdout buffering
