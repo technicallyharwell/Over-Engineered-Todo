@@ -15,7 +15,7 @@ pipeline {
     agent {
         dockerfile {
             filename 'api.Dockerfile'
-            args '-u root:root -v /var/lib/jenkins:/var/lib/jenkins'
+            args '-u root:root -v /var/lib/jenkins:/var/lib/jenkins -v /usr/bin:/usr/bin'
         }
     }
     stages {
