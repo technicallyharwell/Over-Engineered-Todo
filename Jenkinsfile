@@ -55,13 +55,8 @@ pipeline {
             environment {
                 SCANNER_HOME = tool 'SonarQubeScanner'
             }
-            agent {
-                docker {
-                    image 'sonarsource/sonar-scanner-cli:latest'
-                }
-            }
             steps {
-                sh "sonar-scanner"
+                sh "${SCANNER_HOME}/bin/sonar-scanner"
             }
         }
     }
