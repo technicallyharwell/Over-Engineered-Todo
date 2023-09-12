@@ -22,10 +22,6 @@ FROM py-base as app-base
 # Copy Poetry venv from the previous stage
 COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
 
-# Copy Jenkins plugins from CI node
-COPY /var/lib/jenkins /var/lib/jenkins
-
-
 # Update PATH and PYTHONPATH in application layer
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 ENV PYTHONPATH="${PYTHONPATH}:/api"
