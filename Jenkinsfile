@@ -15,7 +15,7 @@ pipeline {
     agent {
         dockerfile {
             filename 'api.Dockerfile'
-            args '-u root:root'
+            args '--network=host -u root:root -v /var/lib/jenkins:/var/lib/jenkins -v /usr/bin/java:/usr/bin/java -v /usr/lib/jvm:/usr/lib/jvm -v /usr/share:/usr/share -v /etc/java:/etc/java'
         }
     }
     stages {
@@ -52,8 +52,15 @@ pipeline {
             }
         }
         stage('Code Coverage') {
+            environment {
+                SCANNER_HOME = tool 'SonarQubeScanner'
+            }
             steps {
-                echo 'Performing code scan...'
+                withEnv(["PATH=$SCANNER_HOME/bin:$PATH"]) {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.branch.name=$BRANCH_NAME"
+                    }
+                }
             }
         }
     }
