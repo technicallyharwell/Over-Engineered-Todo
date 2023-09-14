@@ -28,6 +28,7 @@ pipeline {
                     args '-u root:root'
                 }
             }
+            reuseNode true
             steps {
                 checkout scm
             }
@@ -40,6 +41,7 @@ pipeline {
                         args '-u root:root'
                     }
                 }
+            reuseNode true
             steps {
                 sh """
                     poetry lock
@@ -54,6 +56,7 @@ pipeline {
                     args '-u root:root'
                 }
             }
+            reuseNode true
             steps {
                 sh """
                     echo "linting..."
@@ -69,6 +72,7 @@ pipeline {
                     args '-u root:root'
                 }
             }
+            reuseNode true
             steps {
                 echo 'Testing..'
                 sh """
