@@ -71,9 +71,6 @@ pipeline {
                     args '-u root:root'
                 }
             }
-//            environment {
-//                SCANNER_HOME = tool 'SonarQubeScanner'
-//            }
             steps {
                 unstash 'repo'
                 sh """
