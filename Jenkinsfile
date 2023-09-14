@@ -16,9 +16,13 @@ pipeline {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
     agent {
+//        dockerfile {
+//            filename 'api.Dockerfile'
+//           args '--network=host -u root:root -v /var/lib/jenkins:/var/lib/jenkins -v /usr/bin/java:/usr/bin/java -v /usr/lib/jvm:/usr/lib/jvm -v /usr/share:/usr/share -v /etc/java:/etc/java'
+//        }
         dockerfile {
-            filename 'api.Dockerfile'
-            args '--network=host -u root:root -v /var/lib/jenkins:/var/lib/jenkins -v /usr/bin/java:/usr/bin/java -v /usr/lib/jvm:/usr/lib/jvm -v /usr/share:/usr/share -v /etc/java:/etc/java'
+            filename 'CI-build/CI-build.Dockerfile'
+            args '-u root:root'
         }
     }
     stages {
@@ -32,7 +36,7 @@ pipeline {
             steps {
                 sh """
                     poetry lock
-                    poetry install
+                    poetry install --without test
                     """
             }
         }
