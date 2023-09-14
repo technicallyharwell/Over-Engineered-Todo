@@ -36,7 +36,7 @@ pipeline {
             steps {
                 sh """
                     poetry lock
-                    poetry install --without test
+                    poetry install
                     """
             }
         }
