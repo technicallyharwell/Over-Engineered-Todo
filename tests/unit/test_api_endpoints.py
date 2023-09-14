@@ -1,24 +1,24 @@
 from app.crud.base import CRUDBase
 
 
-def test_root_endpoint(client):
-    response = client.get("/")
-    assert response.status_code == 200
-    assert "success" in response.json()
-
-
-# def test_get_entry(client, monkeypatch):
-#     test_entry = {"id": 1, "key": "first", "is_complete": False}
-#
-#     def mock_get(*args, **kwargs):
-#         return test_entry
-#
-#     # CRUDBase get method is mocked so that the database is not written to for testing
-#     monkeypatch.setattr(CRUDBase, "get", mock_get)
-#
-#     response = client.get("/entry/first")
+# def test_root_endpoint(client):
+#     response = client.get("/")
 #     assert response.status_code == 200
-#     assert response.json()["key"] == "first"
+#     assert "success" in response.json()
+
+
+def test_get_entry(client, monkeypatch):
+    test_entry = {"id": 1, "key": "first", "is_complete": False}
+
+    def mock_get(*args, **kwargs):
+        return test_entry
+
+    # CRUDBase get method is mocked so that the database is not written to for testing
+    monkeypatch.setattr(CRUDBase, "get", mock_get)
+
+    response = client.get("/entry/first")
+    assert response.status_code == 200
+    assert response.json()["key"] == "first"
 #
 #
 # def test_get_entry_not_found(client, monkeypatch):
