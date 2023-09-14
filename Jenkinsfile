@@ -68,7 +68,7 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'CI-build.Dockerfile'
-                    args '-u root:root'
+                    args '-u jenkins:jenkins'
                 }
             }
             steps {
