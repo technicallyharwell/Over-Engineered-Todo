@@ -41,6 +41,7 @@ def root(
     :return:
     """
     some_num = fail_quality_gate()
+    print(f"some_num: {some_num}", flush=True)
     entries = crud.todo_entry.get_multi(db, skip=0, limit=5)
     return {"success": True, "entries": entries}
 
