@@ -36,7 +36,7 @@ pipeline {
             steps {
                 sh """
                     poetry lock
-                    poetry install
+                    poetry install --with test
                     """
             }
         }
@@ -69,11 +69,12 @@ pipeline {
                 SCANNER_HOME = tool 'SonarQubeScanner'
             }
             steps {
-                withEnv(["PATH=$SCANNER_HOME/bin:$PATH"]) {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.branch.name=$BRANCH_NAME"
-                    }
-                }
+                sh """
+                    echo "Running SonarQube analysis"
+                    sonar-scanner --version
+                    sonar-scanner \
+                    -Dsonar.projectKey=$BRANCH_NAME
+                    """
                 waitForQualityGate abortPipeline: true
             }
         }
