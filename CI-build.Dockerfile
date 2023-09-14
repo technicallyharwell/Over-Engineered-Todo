@@ -8,7 +8,7 @@ USER root
 WORKDIR /opt
 
 RUN apt-get update && \
-    apt-get install -y wget unzip python3.11 && \
+    apt-get install -y wget unzip && \
     wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip && \
     unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip && \
     rm sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip && \
