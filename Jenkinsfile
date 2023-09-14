@@ -59,7 +59,7 @@ pipeline {
             }
             post {
                 success {
-                    stash name: 'repo', includes: '**'
+                    stash name: 'repo'
                 }
             }
         }
