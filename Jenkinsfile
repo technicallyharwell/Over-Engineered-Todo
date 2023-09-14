@@ -15,54 +15,65 @@ pipeline {
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
-    agent {
-        dockerfile {
-            filename 'api.Dockerfile'
-            args '--network=host -u root:root -v /var/lib/jenkins:/var/lib/jenkins -v /usr/bin/java:/usr/bin/java -v /usr/lib/jvm:/usr/lib/jvm -v /usr/share:/usr/share -v /etc/java:/etc/java'
-        }
-    }
+    agent none
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
+        stage('Python part') {
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                }
             }
-        }
-        stage('Install') {
-        // install dependencies used throughout the pipeline
-            steps {
-                sh """
-                    poetry lock
-                    poetry install
-                    """
-            }
-        }
-        stage('Lint') {
-            steps {
-                sh """
-                    echo "linting..."
-                    poetry run ruff .
-                    echo "finished linting"
-                    """
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                sh """
-                   chmod +x ./pretest.sh
-                   ./pretest.sh
-                   """
-            }
-        }
-        stage('Code Coverage') {
-            environment {
-                SCANNER_HOME = tool 'SonarQubeScanner'
-            }
-            steps {
-                withEnv(["PATH=$SCANNER_HOME/bin:$PATH"]) {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.branch.name=$BRANCH_NAME"
+            stages {
+                stage('Checkout') {
+                    steps {
+                        checkout scm
                     }
+                }
+                stage('Install') {
+                    steps {
+                        sh """
+                            poetry lock
+                            poetry install --with test
+                            """
+                    }
+                }
+                stage('Lint') {
+                    steps {
+                        sh """
+                            echo "linting..."
+                            poetry run ruff .
+                            echo "finished linting"
+                            """
+                    }
+                }
+                stage('Test') {
+                    steps {
+                        echo 'Testing..'
+                        sh """
+                           chmod +x ./pretest.sh
+                           ./pretest.sh
+                           """
+                    }
+                }
+            }
+            post {
+                success {
+                    stash name: 'sources', excludes: '**/__pycache__/**'
+                }
+            }
+        }
+
+        stage('Code Coverage') {
+            agent {
+                dockerfile {
+                    filename 'CI-build.Dockerfile'
+                    args '--network=host'
+                }
+            }
+            steps {
+                unstash 'sources'
+                withSonarQubeEnv('SonarQube') {
+                    sh "sonar-scanner -Dsonar.branch.name=$BRANCH_NAME"
                 }
                 waitForQualityGate abortPipeline: true
             }
