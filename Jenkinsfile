@@ -50,7 +50,6 @@ pipeline {
                     steps {
                         echo 'Testing..'
                         sh """
-                           chmod -R 777 ./*
                            chmod +x ./pretest.sh
                            ./pretest.sh
                            """
