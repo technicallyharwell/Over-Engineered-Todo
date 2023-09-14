@@ -64,6 +64,7 @@ pipeline {
                         sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.branch.name=$BRANCH_NAME"
                     }
                 }
+                waitForQualityGate abortPipeline: true
             }
         }
     }
