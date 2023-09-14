@@ -65,9 +65,9 @@ pipeline {
                     args '-u root:root'
                 }
             }
-            environment {
-                SCANNER_HOME = tool 'SonarQubeScanner'
-            }
+//            environment {
+//                SCANNER_HOME = tool 'SonarQubeScanner'
+//            }
             steps {
                 sh """
                     echo 'Running SonarQube analysis'
