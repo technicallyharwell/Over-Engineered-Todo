@@ -1,7 +1,4 @@
 pipeline {
-    triggers {
-        pollSCM('')     // build on push
-    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         disableConcurrentBuilds()
