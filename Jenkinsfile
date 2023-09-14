@@ -21,7 +21,6 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                    args '-u jenkins:jenkins'
                 }
             }
             stages {
@@ -68,7 +67,6 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'CI-build.Dockerfile'
-                    args '-u jenkins:jenkins'
                 }
             }
             steps {

@@ -25,3 +25,5 @@ COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
 # Update PATH and PYTHONPATH in application layer
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 ENV PYTHONPATH="${PYTHONPATH}:/api"
+
+RUN chmod -R 777 /opt
