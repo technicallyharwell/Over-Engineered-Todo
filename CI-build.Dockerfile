@@ -1,5 +1,5 @@
 FROM openjdk:17.0.2-jdk-slim as java-base
-COPY --from=python:3.11 / /
+COPY --from=python:3.11 /usr/local/bin/python /usr/local/bin/python
 
 ENV SONAR_SCANNER_VERSION=5.0.0.2966
 ENV SONAR_SCANNER_HOME=/opt/sonar-scanner
