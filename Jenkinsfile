@@ -59,7 +59,7 @@ pipeline {
             }
             post {
                 success {
-                    stash name: 'repo'
+                    stash name: 'sources'
                 }
             }
         }
@@ -68,11 +68,11 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'CI-build.Dockerfile'
-                    args '-u jenkins:jenkins'
+                    args '-u root:root'
                 }
             }
             steps {
-                unstash 'repo'
+                unstash 'sources'
                 sh """
                     echo 'Running SonarQube analysis'
                     sonar-scanner --version
