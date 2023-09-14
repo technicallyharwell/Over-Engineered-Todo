@@ -9,6 +9,7 @@ cd ./tests/config && poetry run alembic upgrade head
 # TODO - refactor SQLA usage to be compatible with 2.0
 export SQLALCHEMY_SILENCE_UBER_WARNING=1
 
+
 cd ../../
 poetry run coverage run -m pytest
 test_result=$?
