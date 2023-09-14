@@ -23,13 +23,6 @@ app = FastAPI(
 api_router = APIRouter()
 
 
-# Fail the quality gate check
-def fail_quality_gate():
-    arg1 = 1
-    arg2 = 2
-    return arg1 + arg2
-
-
 # Define the routes
 @api_router.get("/", status_code=200)
 def root(
@@ -40,8 +33,6 @@ def root(
 
     :return:
     """
-    some_num = fail_quality_gate()
-    print(f"some_num: {some_num}", flush=True)
     entries = crud.todo_entry.get_multi(db, skip=0, limit=5)
     return {"success": True, "entries": entries}
 
