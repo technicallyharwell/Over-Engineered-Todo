@@ -67,6 +67,7 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'CI-build.Dockerfile'
+                    args '--network=host'
                 }
             }
             steps {
@@ -75,7 +76,8 @@ pipeline {
                     echo 'Running SonarQube analysis'
                     sonar-scanner --version
                     sonar-scanner \
-                    -Dsonar.projectKey=$BRANCH_NAME
+                    -Dsonar.projectKey=$BRANCH_NAME \
+                    -Dsonar.login=$SONAR_TOKEN
                     """
                 waitForQualityGate abortPipeline: true
             }
