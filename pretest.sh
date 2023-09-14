@@ -14,7 +14,7 @@ poetry run coverage run -m pytest
 test_result=$?
 poetry run coverage xml
 
-# cleanup
+# cleanup...
 cd ./tests/config
 rm -rf ./alembic
 rm ./alembic.ini
