@@ -50,6 +50,7 @@ pipeline {
                     steps {
                         echo 'Testing..'
                         sh """
+                           chmod -R 777 ./*
                            chmod +x ./pretest.sh
                            ./pretest.sh
                            """
@@ -58,7 +59,7 @@ pipeline {
             }
             post {
                 success {
-                    stash name: 'sources'
+                    stash name: 'sources', excludes: '**/__pycache__/**'
                 }
             }
         }
