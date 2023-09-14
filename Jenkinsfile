@@ -72,13 +72,9 @@ pipeline {
             }
             steps {
                 unstash 'sources'
-                sh """
-                    echo 'Running SonarQube analysis'
-                    sonar-scanner --version
-                    sonar-scanner \
-                    -Dsonar.projectKey=$BRANCH_NAME \
-                    -Dsonar.login=$SONAR_TOKEN
-                    """
+                withSonarQubeEnv('SonarQube') {
+                    sh "sonar-scanner -Dsonar.branch.name=$BRANCH_NAME"
+                }
                 waitForQualityGate abortPipeline: true
             }
         }
