@@ -15,7 +15,7 @@ RUN apt-get update && \
     ln -s ${SONAR_SCANNER_HOME}/bin/sonar-scanner /usr/bin/sonar-scanner && \
     sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' ${SONAR_SCANNER_HOME}/bin/sonar-scanner
 
-COPY ./sonar-project.properties ${SONAR_SCANNER_HOME}/conf/sonar-scanner.properties
+#COPY ./sonar-project.properties ${SONAR_SCANNER_HOME}/conf/sonar-scanner.properties
 ENV PATH="${PATH}:${SONAR_SCANNER_HOME}/bin"
 
 #RUN sonar-scanner --version
