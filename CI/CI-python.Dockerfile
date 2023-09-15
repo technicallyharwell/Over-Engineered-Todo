@@ -26,29 +26,4 @@ COPY --from=poetry-base ${POETRY_VENV} ${POETRY_VENV}
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 ENV PYTHONPATH="${PYTHONPATH}:/api"
 
-# Disable stdout buffering
-ENV PYTHONUNBUFFERED=1
-
-# Set the working directory
-WORKDIR /api
-
-# Install dependencies
-#COPY pyproject.toml poetry.lock ./
-COPY pyproject.toml ./
-
-# Validate that the project can be built
-RUN poetry check
-
-# Install dependencies
-RUN poetry install --no-interaction --no-cache
-
-# Copy project files
-COPY . /api
-
-# Run prestart setups
-RUN chmod +x ./prestart.sh && \
-    poetry run ./prestart.sh
-
-# Run the application - uncomment to run from dockerfile instead of compose
-#EXPOSE 8001
-#CMD ["poetry", "run", "./run.sh"]
+RUN chmod -R 777 /opt

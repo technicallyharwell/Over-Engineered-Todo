@@ -20,7 +20,7 @@ pipeline {
         stage('Python part') {
             agent {
                 dockerfile {
-                    filename 'Dockerfile'
+                    filename 'CI/CI-python.Dockerfile'
                 }
             }
             stages {
@@ -33,7 +33,7 @@ pipeline {
                     steps {
                         sh """
                             poetry lock
-                            poetry install --with test
+                            poetry install --with test --no-interaction
                             """
                     }
                 }
@@ -41,6 +41,7 @@ pipeline {
                     steps {
                         sh """
                             echo "linting..."
+                            cp CI/ruff.toml ./ruff.toml
                             poetry run ruff .
                             echo "finished linting"
                             """
@@ -50,6 +51,7 @@ pipeline {
                     steps {
                         echo 'Testing..'
                         sh """
+                           cp CI/pretest.sh ./pretest.sh
                            chmod +x ./pretest.sh
                            ./pretest.sh
                            """
@@ -66,12 +68,13 @@ pipeline {
         stage('Code Coverage') {
             agent {
                 dockerfile {
-                    filename 'CI-build.Dockerfile'
+                    filename 'CI/CI-sonar.Dockerfile'
                     args '--network=host'
                 }
             }
             steps {
                 unstash 'sources'
+                sh 'cp CI/sonar-project.properties ./sonar-project.properties'
                 withSonarQubeEnv('SonarQube') {
                     sh "sonar-scanner -Dsonar.branch.name=$BRANCH_NAME"
                 }
