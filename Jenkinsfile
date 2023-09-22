@@ -15,7 +15,7 @@ pipeline {
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
-    agent none
+    agent any
     stages {
         stage('Python part') {
             agent {
@@ -84,7 +84,6 @@ pipeline {
     }
     post {
         always {
-            agent node
             script {
                 if (env.BRANCH_NAME.startsWith('PR')) {
                     def buildLink = "${env.BUILD_URL}"
