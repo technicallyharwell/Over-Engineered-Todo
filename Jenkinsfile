@@ -15,7 +15,7 @@ pipeline {
     environment {
         GIT_REPO_URL = 'https://github.com/technicallyharwell/fastapi-templates.git'
     }
-    agent any
+    agent none
     stages {
         stage('Python part') {
             agent {
@@ -84,14 +84,16 @@ pipeline {
     }
     post {
         always {
-            script {
-                if (env.BRANCH_NAME.startsWith('PR')) {
-                    def buildLink = "${env.BUILD_URL}"
-                    def comment = "Build: ${buildLink} finished with status ${currentBuild.currentResult}"
-                    echo "Commenting on PR ${env.CHANGE_ID} with ${comment}"
-                    sh """
-                        curl -X POST -H "Authorization: token ${env.GITHUB_SVC_ACC_TOKEN}" -d '{"body":"${comment}"}' https://api.github.com/repos/${env.GITHUB_REPOSITORY}/issues/${env.CHANGE_ID}/comments
-                        """
+            node(null) {
+                script {
+                    if (env.BRANCH_NAME.startsWith('PR')) {
+                        def buildLink = "${env.BUILD_URL}"
+                        def comment = "Build: ${buildLink} finished with status ${currentBuild.currentResult}"
+                        echo "Commenting on PR ${env.CHANGE_ID} with ${comment}"
+                        sh """
+                            curl -X POST -H "Authorization: token ${env.GITHUB_SVC_ACC_TOKEN}" -d '{"body":"${comment}"}' https://api.github.com/repos/${env.GITHUB_REPOSITORY}/issues/${env.CHANGE_ID}/comments
+                            """
+                    }
                 }
             }
         }
