@@ -89,9 +89,11 @@ pipeline {
                     if (env.BRANCH_NAME.startsWith('PR')) {
                         def buildLink = "${env.BUILD_URL}"
                         def comment = "Build: ${buildLink} finished with status ${currentBuild.currentResult}"
+                        def repoOwner = "technicallyharwell"
+                        def repoName = "Over-Engineered-Todo"
                         echo "Commenting on PR ${env.CHANGE_ID} with ${comment}"
                         sh """
-                            curl -X POST -H "Authorization: token ${env.GITHUB_SVC_ACC_TOKEN}" -d '{"body":"${comment}"}' https://api.github.com/repos/${env.GITHUB_REPOSITORY}/issues/${env.CHANGE_ID}/comments
+                            curl -X POST -H "Authorization: token ${env.GITHUB_SVC_ACC_TOKEN}" -d '{"body":"${comment}"}' https://api.github.com/repos/${repoOwner}/${repoName}/issues/${env.CHANGE_ID}/comments
                             """
                     }
                 }
