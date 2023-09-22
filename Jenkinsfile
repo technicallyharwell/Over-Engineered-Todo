@@ -83,6 +83,7 @@ pipeline {
         }
     }
     post {
+        agent node
         always {
             script {
                 if (env.BRANCH_NAME.startsWith('PR')) {
