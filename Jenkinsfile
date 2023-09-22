@@ -86,8 +86,6 @@ pipeline {
         always {
             script {
                 if (env.BRANCH_NAME.startsWith('PR')) {
-                    pullRequest.setCredentials(env.GITHUB_SVC_ACC_NAME, env.GITHUB_SVC_ACC_PW)
-                    pullRequest.refresh()  // https://github.com/jenkinsci/pipeline-github-plugin/issues/102
                     pullRequest.comment("Build finished: ${currentBuild.result}")
                 }
             }
