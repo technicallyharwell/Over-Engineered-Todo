@@ -84,10 +84,11 @@ pipeline {
     }
     post {
         always {
-            when { changeRequest() }
             script {
-                pullRequest.setCredentials($GITHUB_SVC_ACC_NAME, $GITHUB_SVC_ACC_PW)
-                pullRequest.comment("Build finished: ${currentBuild.result}")
+                if (env.BRANCH_NAME.startsWith('PR')) {
+                    pullRequest.setCredentials($GITHUB_SVC_ACC_NAME, $GITHUB_SVC_ACC_PW)
+                    pullRequest.comment("Build finished: ${currentBuild.result}")
+                }
             }
         }
     }
