@@ -86,8 +86,12 @@ pipeline {
         always {
             script {
                 if (env.BRANCH_NAME.startsWith('PR')) {
-                    pullRequest.setCredentials('harwell-svc-acc', env.GITHUB_SVC_ACC_PW)
-                    pullRequest.comment("Build finished: ${currentBuild.result}")
+                    def buildLink = "${env.BUILD_URL}"
+                    def comment = "Build: ${buildLink} finished with status ${currentBuild.currentResult}"
+                    echo "Commenting on PR ${env.CHANGE_ID} with ${comment}"
+                    sh """
+                        curl -X POST -H "Authorization: token ${env.GITHUB_SVC_ACC_TOKEN}" -d '{"body":"${comment}"}' https://api.github.com/repos/${env.GITHUB_REPOSITORY}/issues/${env.CHANGE_ID}/comments
+                        """
                 }
             }
         }
