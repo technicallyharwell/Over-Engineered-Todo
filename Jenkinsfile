@@ -86,6 +86,7 @@ pipeline {
         always {
             script {
                 if (env.BRANCH_NAME.startsWith('PR')) {
+                    pullRequest.setCredentials('harwell-svc-acc', env.GITHUB_SVC_ACC_PW)
                     pullRequest.comment("Build finished: ${currentBuild.result}")
                 }
             }
