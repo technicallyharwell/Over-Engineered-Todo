@@ -84,9 +84,10 @@ pipeline {
     }
     post {
         always {
+            when { changeRequest() }
             script {
-                def pullRequest.setCredentials($GITHUB_SVC_ACC_NAME, $GITHUB_SVC_ACC_PW)
-                def pullRequest.comment("Build finished: ${currentBuild.result}")
+                pullRequest.setCredentials($GITHUB_SVC_ACC_NAME, $GITHUB_SVC_ACC_PW)
+                pullRequest.comment("Build finished: ${currentBuild.result}")
             }
         }
     }
