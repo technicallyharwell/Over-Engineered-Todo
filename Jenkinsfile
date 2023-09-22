@@ -83,8 +83,8 @@ pipeline {
         }
     }
     post {
-        agent node
         always {
+            agent node
             script {
                 if (env.BRANCH_NAME.startsWith('PR')) {
                     def buildLink = "${env.BUILD_URL}"
