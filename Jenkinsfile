@@ -82,4 +82,10 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            pullRequest.setCredentials($GITHUB_SVC_ACC_NAME, $GITHUB_SVC_ACC_PW)
+            pullRequest.comment("Build finished: ${currentBuild.result}")
+        }
+    }
 }
