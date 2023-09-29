@@ -6,7 +6,7 @@ from app.crud.base import CRUDBase
 from app.models.ToDoEntry import ToDoEntry
 from app.schemas.todo_entry import TodoEntryCreate, TodoEntryUpdate
 
-# TODO - look at jsonable_encoder
+# investigate jsonable_encoder from fastapi.encoders
 
 
 class CRUDToDoEntry(CRUDBase[ToDoEntry, TodoEntryCreate, TodoEntryUpdate]):

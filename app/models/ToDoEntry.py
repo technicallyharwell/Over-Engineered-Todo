@@ -10,10 +10,8 @@ class ToDoEntry(Base):
 
     Relations:
         - Has a foreign key to ToDoList, establishing a one-to-many
-            relationship b/t list -> entries
+            relationship b/t list -> entries via back_populates
     """
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     key = Column(String(256), unique=True, index=True)
     is_complete = Column(Boolean, default=False)
-    # todolist_id = Column(Integer, ForeignKey("todolist.id"))
-    # todolist = relationship("ToDoList", back_populates="entries")
