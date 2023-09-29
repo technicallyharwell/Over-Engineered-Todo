@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.db import base  # noqa: F401
-from app.todo_entry_data import TODO_ENTRIES
+from app.helpers.todo_entry_data import TODO_ENTRIES
 
 logger = logging.getLogger(__name__)
 

@@ -22,9 +22,6 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
-    # def get(self, db: Session, id: Any) -> Optional[ModelType]:
-    #     return db.query(self.model).filter(self.model.id == id).first()
-
     def get(self, db: Session, key: str) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.key == key).first()
 
@@ -66,4 +63,3 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db.delete(obj)
         db.commit()
         return obj
-
