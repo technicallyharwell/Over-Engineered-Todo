@@ -65,3 +65,8 @@ def test_delete_entry(client):
     response = client.delete("/entry/first")
     assert response.status_code == 200
     assert response.json()["key"] == "first"
+
+
+def test_delete_entry_not_found(client):
+    response = client.delete("/entry/non_existent_entry")
+    assert response.status_code == 404
