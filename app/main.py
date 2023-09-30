@@ -2,15 +2,11 @@ from fastapi import FastAPI, Depends, HTTPException, APIRouter
 
 from typing import Any
 from sqlalchemy.orm import Session
-from pathlib import Path
 
 from app.schemas.todo_entry import TodoEntryCreate, TodoEntryUpdate, TodoEntry
 from app import deps
 from app import crud
 
-# Directories
-ROOT = Path(__file__).resolve().parent.parent
-BASE_PATH = Path(__file__).resolve().parent
 
 # Initialize the app
 app = FastAPI(
@@ -24,7 +20,7 @@ api_router = APIRouter()
 
 
 # Define the routes
-@api_router.get("/", status_code=200)
+@api_router.get("/", status_code=200, response_model=dict[str, list[TodoEntry]])
 def root(
     db: Session = Depends(deps.get_db)
 ) -> dict:
@@ -34,7 +30,7 @@ def root(
     :return:
     """
     entries = crud.todo_entry.get_multi(db, skip=0, limit=5)
-    return {"success": True, "entries": entries}
+    return {"entries": entries}
 
 
 @api_router.get("/entry/{entry_key}", status_code=200, response_model=TodoEntry)
@@ -114,4 +110,4 @@ app.include_router(api_router)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001, log_level="info")
+    uvicorn.run(app, host="0.0.0.0", port=8002, log_level="info")

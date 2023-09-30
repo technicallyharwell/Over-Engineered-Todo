@@ -4,7 +4,7 @@ from app.crud.base import CRUDBase
 def test_root_endpoint(client):
     response = client.get("/")
     assert response.status_code == 200
-    assert "success" in response.json()
+    assert "entries" in response.json()
 
 
 def test_get_entry(client, monkeypatch):

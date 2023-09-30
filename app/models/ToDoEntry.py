@@ -12,6 +12,8 @@ class ToDoEntry(Base):
         - Has a foreign key to ToDoList, establishing a one-to-many
             relationship b/t list -> entries via back_populates
     """
+    __tablename__ = "todo_entries"
+
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     key = Column(String(256), unique=True, index=True)
     is_complete = Column(Boolean, default=False)
