@@ -51,4 +51,4 @@ RUN chmod +x ./prestart.sh && \
 
 # Run the application - uncomment to run from dockerfile instead of compose
 #EXPOSE 8001
-#CMD ["poetry", "run", "./run.sh"]
+#CMD exec poetry run uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload

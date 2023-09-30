@@ -7,14 +7,12 @@ authors = ["Robert"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-uvicorn = "^0.23"
 fastapi = "^0.100.0"
-python-multipart = "~0.0.5"
 pydantic = "^2.3"
-Jinja2 = "^3.0.1"
-SQLAlchemy = "^1.4.22"
 alembic = "^1.12.0"
 tenacity = "^8.2.0"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+sqlalchemy = "^2.0.21"
 
 [tool.poetry.group.test]
 optional = true
