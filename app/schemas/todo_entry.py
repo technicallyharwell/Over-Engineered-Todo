@@ -6,11 +6,10 @@ class TodoEntryBase(BaseModel):
 
 
 class TodoEntryCreate(TodoEntryBase):
-    key: str
+    pass
 
 
 class TodoEntryUpdate(TodoEntryBase):
-    key: str
     is_complete: bool
 
 
