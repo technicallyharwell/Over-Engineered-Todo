@@ -10,6 +10,9 @@ from app.schemas.todo_entry import TodoEntryCreate, TodoEntryUpdate
 
 
 class CRUDToDoEntry(CRUDBase[ToDoEntry, TodoEntryCreate, TodoEntryUpdate]):
+    """
+    Overrides the update method from CRUDBase to update the is_complete prop
+    """
     def update(
         self,
         db: Session,
