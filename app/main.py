@@ -33,21 +33,19 @@ def root(
     return {"entries": entries}
 
 
-@api_router.get("/entry/{entry_key}", status_code=200, response_model=TodoEntry)
+@api_router.get("/entry/{id}", status_code=200, response_model=TodoEntry)
 def fetch_todo_entry(
     *,
-    entry_key: str,
+    id: int,
     db: Session = Depends(deps.get_db),
 ) -> Any:
     """
-    Fetch a single to-do entry by keyword
-
-    :return:
+    Fetch a single to-do entry by id
     """
-    result = crud.todo_entry.get(db=db, key=entry_key)
+    result = crud.todo_entry.get(db=db, id=id)
     if not result:
         raise HTTPException(status_code=404,
-                            detail=f"Entry not found for key {entry_key}")
+                            detail=f"Entry not found for id {id}")
     return result
 
 
@@ -59,8 +57,6 @@ def create_entry(
 ) -> dict:
     """
     Create a new to-do entry
-
-    :return:
     """
     entry = crud.todo_entry.create(db=db, obj_in=entry_in)
     return entry
@@ -74,33 +70,28 @@ def update_entry(
 ) -> Any:
     """
     Update an existing to-do entry
-
-    :return:
     """
-    entry = crud.todo_entry.get(db=db, key=entry_in.key)
-    print(f"entry: {entry} for PUT", flush=True)
+    entry = crud.todo_entry.get(db=db, id=entry_in.id)
     if not entry:
         raise HTTPException(status_code=404,
-                            detail=f"Entry not found for key {entry_in.key}")
+                            detail=f"Entry not found for id {entry_in.id}")
     entry = crud.todo_entry.update(db=db, db_obj=entry, obj_in=entry_in)
     return entry
 
 
-@api_router.delete("/entry/{entry_key}", status_code=200, response_model=TodoEntry)
+@api_router.delete("/entry/{id}", status_code=200, response_model=TodoEntry)
 def delete_entry(
     *,
-    entry_key: str,
+    id: int,
     db: Session = Depends(deps.get_db)
 ) -> Any:
     """
     Delete an existing to-do entry
-
-    :return:
     """
-    entry = crud.todo_entry.get(db=db, key=entry_key)
+    entry = crud.todo_entry.get(db=db, id=id)
     if not entry:
         raise HTTPException(status_code=404,
-                            detail=f"Entry not found for key {entry_key}")
+                            detail=f"Entry not found for key {id}")
     entry = crud.todo_entry.remove(db=db, id=entry.id)
     return entry
 
