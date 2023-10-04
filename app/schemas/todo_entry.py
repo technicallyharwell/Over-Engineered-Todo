@@ -10,6 +10,7 @@ class TodoEntryCreate(TodoEntryBase):
 
 
 class TodoEntryUpdate(TodoEntryBase):
+    id: int
     is_complete: bool
 
 
