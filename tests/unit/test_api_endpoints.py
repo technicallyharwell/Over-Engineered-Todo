@@ -17,7 +17,8 @@ def test_get_entry(client, monkeypatch):
     # CRUDBase get method is mocked so that the database is not written to for testing
     monkeypatch.setattr(CRUDBase, "get", mock_get)
 
-    response = client.get("/entry/1")
+    response = client.get("/entries/1")
+    print(f"response: {response.json()}")
     assert response.status_code == 200
     assert response.json()["key"] == "first"
 
@@ -29,7 +30,7 @@ def test_get_entry_not_found(client, monkeypatch):
     # CRUDBase get method is mocked so that the database is not written to for testing
     monkeypatch.setattr(CRUDBase, "get", mock_get)
 
-    response = client.get("/entry/1")
+    response = client.get("/entries/1")
     assert response.status_code == 404
 
 
@@ -42,7 +43,7 @@ def test_create_entry(client, monkeypatch):
     # CRUDBase create is mocked so that the database is not written to
     monkeypatch.setattr(CRUDBase, "create", mock_post)
 
-    response = client.post("/entry", json=test_entry)
+    response = client.post("/entries", json=test_entry)
     assert response.status_code == 201
     assert response.json()["key"] == "create"
 
@@ -66,7 +67,7 @@ def test_update_entry(client, monkeypatch):
     # CRUDToDoEntry update is mocked so that the database is not written to
     monkeypatch.setattr(CRUDToDoEntry, "update", mock_update)
 
-    response = client.put("/entry", json=update_entry)
+    response = client.put("/entries", json=update_entry)
     assert response.status_code == 200
     assert response.json()["is_complete"] is True
 
@@ -74,7 +75,7 @@ def test_update_entry(client, monkeypatch):
 def test_update_entry_not_found(client):
     update_entry = {"id": 1, "key": "first", "is_complete": True}
 
-    response = client.put("/entry", json=update_entry)
+    response = client.put("/entries", json=update_entry)
     assert response.status_code == 404
 
 
@@ -94,11 +95,11 @@ def test_delete_entry(client, monkeypatch):
     # CRUDBase delete method is mocked so that the database is not written to
     monkeypatch.setattr(CRUDBase, "remove", mock_delete)
 
-    response = client.delete("/entry/1")
+    response = client.delete("/entries/1")
     assert response.status_code == 200
     assert response.json()["key"] == "delete"
 
 
 def test_delete_entry_not_found(client):
-    response = client.delete("/entry/1")
+    response = client.delete("/entries/1")
     assert response.status_code == 404
