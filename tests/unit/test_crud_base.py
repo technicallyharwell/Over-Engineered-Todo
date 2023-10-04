@@ -26,7 +26,7 @@ def setup_db(db_session):
 
 
 def test_get(crud_base, db_session):
-    entry = crud_base.get(db_session, key="test100")
+    entry = crud_base.get(db_session, id=100)
     assert entry.key == "test100" and entry.id == 100
 
 
@@ -42,7 +42,7 @@ def test_create(crud_base, db_session):
 
 
 def test_update(crud_base, db_session):
-    original_entry = crud_base.get(db_session, key="test100")
+    original_entry = crud_base.get(db_session, id=100)
     updated_entry = crud_base.update(db_session,
                                      db_obj=original_entry,
                                      obj_in={"is_complete": True})
@@ -50,6 +50,6 @@ def test_update(crud_base, db_session):
 
 
 def test_remove(crud_base, db_session):
-    entry = crud_base.get(db_session, key="test200")
+    entry = crud_base.get(db_session, id=200)
     crud_base.remove(db_session, id=entry.id)
-    assert crud_base.get(db_session, key="test200") is None
+    assert crud_base.get(db_session, id=200) is None
