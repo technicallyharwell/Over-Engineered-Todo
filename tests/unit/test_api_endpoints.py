@@ -39,7 +39,7 @@ def test_create_entry(client, monkeypatch):
     def mock_post(*args, **kwargs):
         return test_entry
 
-    # CRUDBase create method is mocked so that the database is not written to for testing
+    # CRUDBase create is mocked so that the database is not written to
     monkeypatch.setattr(CRUDBase, "create", mock_post)
 
     response = client.post("/entry", json=test_entry)
@@ -63,7 +63,7 @@ def test_update_entry(client, monkeypatch):
     # CRUDBase get method is mocked so that update thinks the entry exists
     monkeypatch.setattr(CRUDBase, "get", mock_create)
 
-    # CRUDToDoEntry update method is mocked so that the database is not written to for testing
+    # CRUDToDoEntry update is mocked so that the database is not written to
     monkeypatch.setattr(CRUDToDoEntry, "update", mock_update)
 
     response = client.put("/entry", json=update_entry)
@@ -91,7 +91,7 @@ def test_delete_entry(client, monkeypatch):
     # CRUDBase get method is mocked so that delete thinks the entry exists
     monkeypatch.setattr(CRUDBase, "get", mock_get)
 
-    # CRUDBase delete method is mocked so that the database is not written to for testing
+    # CRUDBase delete method is mocked so that the database is not written to
     monkeypatch.setattr(CRUDBase, "remove", mock_delete)
 
     response = client.delete("/entry/1")
