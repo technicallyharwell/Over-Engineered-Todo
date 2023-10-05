@@ -19,6 +19,16 @@ app.include_router(todoentries.router, prefix="/api/v1")
 api_router = APIRouter()
 
 
+@app.on_event("startup")
+def startup_event() -> None:
+    """
+    Startup event, called when the app starts up
+    :return:
+    """
+    from app.postgres_pre_start import init_db
+    init_db()
+
+
 # Define the root route
 @api_router.get("/", status_code=200, response_model=dict[str, list[TodoEntry]])
 def root(
@@ -33,7 +43,7 @@ def root(
     return {"entries": entries}
 
 
-app.include_router(todoentries.router)
+app.include_router(api_router)
 
 
 if __name__ == "__main__":

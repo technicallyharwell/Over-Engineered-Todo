@@ -13,6 +13,7 @@ alembic = "^1.12.0"
 tenacity = "^8.2.0"
 uvicorn = {extras = ["standard"], version = "^0.23.2"}
 sqlalchemy = "^2.0.21"
+psycopg2-binary = "^2.9.9"
 
 [tool.poetry.group.test]
 optional = true
