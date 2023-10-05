@@ -17,14 +17,15 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 from app.db.base import Base  # noqa: E402
-from app.db.session import SQLALCHEMY_DATABASE_URI  # noqa: E402
+# from app.db.session import SQLALCHEMY_DATABASE_URI  # noqa: E402
+from app.db.session import POSTGRES_DATABASE_URI  # noqa: E402
 
 target_metadata = Base.metadata
 
 
 def get_url():
-    return SQLALCHEMY_DATABASE_URI
-
+    # return SQLALCHEMY_DATABASE_URI
+    return POSTGRES_DATABASE_URI
 # target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
