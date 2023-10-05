@@ -15,5 +15,5 @@ class ToDoEntry(Base):
     __tablename__ = "todo_entries"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    key = Column(String(256), unique=True, index=True)
+    entry = Column(String(256), unique=True, index=True)
     is_complete = Column(Boolean, default=False)

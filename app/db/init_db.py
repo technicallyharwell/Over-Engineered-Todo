@@ -18,9 +18,9 @@ def init_db(db: Session) -> None:
     for entry in TODO_ENTRIES:
         entry_in = schemas.TodoEntryCreate(
             id=entry["id"],
-            key=entry["key"],
+            entry=entry["key"],
             is_complete=entry["is_complete"]
         )
         logger.info(f"Creating todo entry {entry_in}")
         crud.todo_entry.create(db, obj_in=entry_in)
-        logger.info(f"Created todo entry with key {entry['key']}")
+        logger.info(f"Created todo entry with text {entry['entry']}")

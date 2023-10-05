@@ -27,7 +27,7 @@ def setup_db(db_session):
 
 def test_get(crud_base, db_session):
     entry = crud_base.get(db_session, id=100)
-    assert entry.key == "test100" and entry.id == 100
+    assert entry.entry == "test100" and entry.id == 100
 
 
 def test_get_multi(crud_base, db_session):
@@ -36,9 +36,9 @@ def test_get_multi(crud_base, db_session):
 
 
 def test_create(crud_base, db_session):
-    new_entry = {"id": 300, "key": "test300", "is_complete": False}
+    new_entry = {"id": 300, "entry": "test300", "is_complete": False}
     entry = crud_base.create(db_session, obj_in=new_entry)
-    assert entry.key == "test300" and entry.id == 300
+    assert entry.entry == "test300" and entry.id == 300
 
 
 def test_update(crud_base, db_session):

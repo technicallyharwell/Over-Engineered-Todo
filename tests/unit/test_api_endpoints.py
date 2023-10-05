@@ -9,7 +9,7 @@ def test_root_endpoint(client):
 
 
 def test_get_entry(client, monkeypatch):
-    test_entry = {"id": 1, "key": "first", "is_complete": False}
+    test_entry = {"id": 1, "entry": "first", "is_complete": False}
 
     def mock_get(*args, **kwargs):
         return test_entry
@@ -20,7 +20,7 @@ def test_get_entry(client, monkeypatch):
     response = client.get("/entries/1")
     print(f"response: {response.json()}")
     assert response.status_code == 200
-    assert response.json()["key"] == "first"
+    assert response.json()["entry"] == "first"
 
 
 def test_get_entry_not_found(client, monkeypatch):
@@ -35,7 +35,7 @@ def test_get_entry_not_found(client, monkeypatch):
 
 
 def test_create_entry(client, monkeypatch):
-    test_entry = {"id": 1, "key": "create", "is_complete": False}
+    test_entry = {"id": 1, "entry": "create", "is_complete": False}
 
     def mock_post(*args, **kwargs):
         return test_entry
@@ -45,12 +45,12 @@ def test_create_entry(client, monkeypatch):
 
     response = client.post("/entries", json=test_entry)
     assert response.status_code == 201
-    assert response.json()["key"] == "create"
+    assert response.json()["entry"] == "create"
 
 
 def test_update_entry(client, monkeypatch):
-    test_entry = {"id": 1, "key": "update", "is_complete": False}
-    update_entry = {"id": 1, "key": "update", "is_complete": True}
+    test_entry = {"id": 1, "entry": "update", "is_complete": False}
+    update_entry = {"id": 1, "entry": "update", "is_complete": True}
 
     def mock_create(*args, **kwargs):
         return test_entry
@@ -73,14 +73,14 @@ def test_update_entry(client, monkeypatch):
 
 
 def test_update_entry_not_found(client):
-    update_entry = {"id": 1, "key": "first", "is_complete": True}
+    update_entry = {"id": 1, "entry": "first", "is_complete": True}
 
     response = client.put("/entries", json=update_entry)
     assert response.status_code == 404
 
 
 def test_delete_entry(client, monkeypatch):
-    test_entry = {"id": 1, "key": "delete", "is_complete": False}
+    test_entry = {"id": 1, "entry": "delete", "is_complete": False}
 
     def mock_get(*args, **kwargs):
         from app.models.ToDoEntry import ToDoEntry
@@ -97,7 +97,7 @@ def test_delete_entry(client, monkeypatch):
 
     response = client.delete("/entries/1")
     assert response.status_code == 200
-    assert response.json()["key"] == "delete"
+    assert response.json()["entry"] == "delete"
 
 
 def test_delete_entry_not_found(client):

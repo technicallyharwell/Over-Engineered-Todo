@@ -46,8 +46,9 @@ RUN poetry install --no-interaction --no-cache
 COPY . /api
 
 # Run prestart setups
-RUN chmod +x ./prestart.sh && \
-    poetry run ./prestart.sh
+RUN chmod +x ./prestart.sh
+    #&& \
+#    poetry run ./prestart.sh
 
 # Run the application - uncomment to run from dockerfile instead of compose
 #EXPOSE 8001

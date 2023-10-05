@@ -2,11 +2,11 @@ from pydantic import BaseModel, ConfigDict
 
 
 class TodoEntryBase(BaseModel):
-    key: str
+    pass
 
 
 class TodoEntryCreate(TodoEntryBase):
-    pass
+    entry: str
 
 
 class TodoEntryUpdate(TodoEntryBase):
@@ -23,7 +23,7 @@ modify which props are returned to the client
 # Props shared by models in DB
 class TodoEntryInDB(TodoEntryBase):
     id: int
-    key: str
+    entry: str
     is_complete: bool
 
     # the Config class approach was deprecated in favor of ConfigDict in pydantic 2.0
@@ -33,5 +33,5 @@ class TodoEntryInDB(TodoEntryBase):
 # Return these props to the client
 class TodoEntry(TodoEntryInDB):
     id: int
-    key: str
+    entry: str
     is_complete: bool
