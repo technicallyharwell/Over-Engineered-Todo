@@ -3,6 +3,7 @@ import os
 from functools import lru_cache
 from pydantic_settings import BaseSettings
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 logger.info("Grabbing settings from the environment")
 
@@ -12,13 +13,15 @@ class Settings(BaseSettings):
         logger.info("Loading local .env file")
         # env vars are not injected from a container, load the local .env file
         from dotenv import load_dotenv
-        print(os.getcwd())
         if "app" in os.getcwd():
-            load_dotenv("../configs/local/sqlite.env")
+            logger.info("Loading local .env file from app directory")
+            load_dotenv("../configs/local/sqlite.env")  # running main.py
         elif "test" in os.getcwd():
-            load_dotenv("../../configs/local/sqlite.env")
+            logger.info("Loading local .env file from test directory")
+            load_dotenv("../../configs/local/sqlite.env")   # init conftest
         else:
-            load_dotenv("./configs/local/sqlite.env")
+            logger.info("Loading local .env file from root directory")
+            load_dotenv("./configs/local/sqlite.env")   # tests execution
         db_dialect: str = os.getenv("DB_DIALECT")
     else:
         app_name: str = os.getenv("APP_NAME")
