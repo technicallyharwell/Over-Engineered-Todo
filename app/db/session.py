@@ -16,7 +16,9 @@ def get_db_uri():
 def get_db_engine():
     db_uri = get_db_uri()
     if "sqlite" in db_uri:
-        return create_engine(db_uri, connect_args={"check_same_thread": False}, echo=True)
+        return create_engine(db_uri,
+                             connect_args={"check_same_thread": False},
+                             echo=True)
     return create_engine(db_uri, echo=True)
 
 # SQLALCHEMY_DATABASE_URI = "sqlite:///./test.db"
