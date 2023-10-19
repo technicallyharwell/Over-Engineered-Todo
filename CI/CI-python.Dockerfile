@@ -14,6 +14,7 @@ FROM py-base as poetry-base
 # Creating a virtual environment just for poetry and install it with pip
 RUN python3 -m venv $POETRY_VENV \
     && $POETRY_VENV/bin/pip install -U pip setuptools \
+    && $POETRY_VENV/bin/pip install --upgrade setuptools \
     && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
 
 # Create new stage for the FastAPI application

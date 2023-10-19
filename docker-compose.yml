@@ -3,6 +3,9 @@ version: "3.9"
 services:
   api:
     container_name: fastapi_backend
+    hostname: fastapi_backend
+    env_file:
+      - ./configs/local/api.env
     build:
       context: .
       dockerfile: api.Dockerfile
@@ -20,19 +23,17 @@ services:
     container_name: db
     hostname: db
     image: postgres:15.4
+    env_file:
+      - ./configs/local/postgres.env
     ports:
       - "5432:5432"
     networks:
       - backend
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=crud_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_FAS:/var/lib/postgresql/data/
 
 volumes:
-    postgres_data:
+    postgres_data_FAS:
       driver: local
 
 networks:
