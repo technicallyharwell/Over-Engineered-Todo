@@ -7,8 +7,4 @@ USER_TESTING_ENTRIES = [
         "username": "test_user_2",
         "hashed_password": "test_password_2",
     },
-    {
-        "username": "test_user_2",
-        "hashed_password": "test_password_3",
-    }
 ]
