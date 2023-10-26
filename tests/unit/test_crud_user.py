@@ -31,6 +31,6 @@ def test_get(crud_user, db_session):
 
 
 def test_create(crud_user, db_session):
-    new_user = {"username": "test_user_300", "password": "test_password_300"}
+    new_user = {"username": "test_user_300", "hashed_password": "test_password_300"}
     user = crud_user.create(db_session, obj_in=new_user)
     assert user.username == "test_user_300" and user.id is not None
