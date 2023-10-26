@@ -1,4 +1,5 @@
 from app.models.ToDoEntry import ToDoEntry  # noqa
+from app.models.User import User            # noqa
 from app.db.session import engine
 from app.db.base_class import Base
 
