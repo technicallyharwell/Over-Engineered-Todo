@@ -11,7 +11,7 @@ from sqlalchemy.orm import sessionmaker
 from app.db.base import Base
 from app.deps import get_db
 from app.main import api_router
-from app.routers import todoentries
+from app.routers import todoentries, authentication
 
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///tests/config/test.db"
@@ -26,6 +26,7 @@ def start_test_app():
     app.include_router(api_router)
     # below can be broken out for more granular testing, e.g. mservice architecture
     app.include_router(todoentries.router)
+    app.include_router(authentication.router)
     return app
 
 
