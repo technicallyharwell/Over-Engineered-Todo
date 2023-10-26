@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.schemas.todo_entry import TodoEntry
 from app import deps
 from app import crud
-from app.routers import todoentries
+from app.routers import todoentries, authentication
 
 # Initialize the app
 app = FastAPI(
@@ -14,6 +14,7 @@ app = FastAPI(
     openapi_url="/api/v1/openapi.json"
 )
 app.include_router(todoentries.router, prefix="/api/v1")
+app.include_router(authentication.router, prefix="/api/v1")
 
 # Initialize the root route
 api_router = APIRouter()
