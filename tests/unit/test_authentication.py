@@ -71,3 +71,36 @@ def test_valid_token_endpoint(client):
     assert resp.status_code == 200
     assert resp.json()["access_token"] is not None
     assert resp.json()["token_type"] == "bearer"
+
+@pytest.mark.asyncio
+async def test_empty_username_exception():
+    from app.routers.sec_endpoint import get_user_from_jwt_token
+    from fastapi import HTTPException, status
+    with pytest.raises(HTTPException) as resp:
+        await get_user_from_jwt_token("")
+    assert resp.value.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+@pytest.mark.asyncio
+async def test_invalid_token_exception():
+    from app.routers.sec_endpoint import get_user_from_jwt_token
+    from fastapi import HTTPException, status
+    with pytest.raises(HTTPException) as resp:
+        await get_user_from_jwt_token("invalid_token")
+    assert resp.value.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+def test_users_me_empty_token(client):
+    resp = client.get("/users/me")
+    assert resp.status_code == 401
+
+
+def test_users_me_valid_token(client):
+    from datetime import timedelta
+    access_token = create_access_token(
+        data={"sub": "test_user_3"},
+        expires_delta=timedelta(minutes=15)
+    )
+    resp = client.get("/users/me", headers={"Authorization": f"Bearer {access_token}"})
+    assert resp.status_code == 200
+    assert resp.json()["username"] == "test_user_3"

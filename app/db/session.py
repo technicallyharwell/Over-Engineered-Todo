@@ -19,7 +19,7 @@ def get_db_engine():
         return create_engine(db_uri,
                              connect_args={"check_same_thread": False},
                              echo=True)
-    return create_engine(db_uri, echo=True)
+    return create_engine(db_uri, echo=False)
 
 # SQLALCHEMY_DATABASE_URI = "sqlite:///./test.db"
 # POSTGRES_DATABASE_URI = "postgresql://postgres:postgres@db:5432/crud_db"
