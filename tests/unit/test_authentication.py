@@ -88,3 +88,8 @@ async def test_invalid_token_exception():
     with pytest.raises(HTTPException) as resp:
         await get_user_from_jwt_token("invalid_token")
     assert resp.value.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+def test_users_me_empty_token(client):
+    resp = client.get("/users/me")
+    assert resp.status_code == 401
