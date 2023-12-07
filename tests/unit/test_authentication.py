@@ -93,3 +93,14 @@ async def test_invalid_token_exception():
 def test_users_me_empty_token(client):
     resp = client.get("/users/me")
     assert resp.status_code == 401
+
+
+def test_users_me_valid_token(client):
+    from datetime import timedelta
+    access_token = create_access_token(
+        data={"sub": "test_user_3"},
+        expires_delta=timedelta(minutes=15)
+    )
+    resp = client.get("/users/me", headers={"Authorization": f"Bearer {access_token}"})
+    assert resp.status_code == 200
+    assert resp.json()["username"] == "test_user_3"
