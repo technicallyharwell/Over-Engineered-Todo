@@ -71,3 +71,20 @@ def test_valid_token_endpoint(client):
     assert resp.status_code == 200
     assert resp.json()["access_token"] is not None
     assert resp.json()["token_type"] == "bearer"
+
+@pytest.mark.asyncio
+async def test_empty_username_exception(client):
+    from app.routers.sec_endpoint import get_user_from_jwt_token
+    from fastapi import HTTPException, status
+    with pytest.raises(HTTPException) as resp:
+        await get_user_from_jwt_token("")
+    assert resp.value.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+@pytest.mark.asyncio
+async def test_invalid_token_exception(client):
+    from app.routers.sec_endpoint import get_user_from_jwt_token
+    from fastapi import HTTPException, status
+    with pytest.raises(HTTPException) as resp:
+        await get_user_from_jwt_token("invalid_token")
+    assert resp.value.status_code == status.HTTP_401_UNAUTHORIZED
