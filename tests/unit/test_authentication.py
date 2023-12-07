@@ -73,7 +73,7 @@ def test_valid_token_endpoint(client):
     assert resp.json()["token_type"] == "bearer"
 
 @pytest.mark.asyncio
-async def test_empty_username_exception(client):
+async def test_empty_username_exception():
     from app.routers.sec_endpoint import get_user_from_jwt_token
     from fastapi import HTTPException, status
     with pytest.raises(HTTPException) as resp:
@@ -82,7 +82,7 @@ async def test_empty_username_exception(client):
 
 
 @pytest.mark.asyncio
-async def test_invalid_token_exception(client):
+async def test_invalid_token_exception():
     from app.routers.sec_endpoint import get_user_from_jwt_token
     from fastapi import HTTPException, status
     with pytest.raises(HTTPException) as resp:
