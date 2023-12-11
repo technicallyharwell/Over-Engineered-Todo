@@ -1,5 +1,4 @@
 from app.crud.base import CRUDBase
-from app.crud.crud_entry import CRUDToDoEntry
 
 
 def test_root_endpoint(client):
@@ -64,8 +63,8 @@ def test_update_entry(client, monkeypatch):
     # CRUDBase get method is mocked so that update thinks the entry exists
     monkeypatch.setattr(CRUDBase, "get", mock_create)
 
-    # CRUDToDoEntry update is mocked so that the database is not written to
-    monkeypatch.setattr(CRUDToDoEntry, "update", mock_update)
+    # CRUDBase update is mocked so that the database is not written to
+    monkeypatch.setattr(CRUDBase, "update", mock_update)
 
     response = client.put("/entries", json=update_entry)
     assert response.status_code == 200
