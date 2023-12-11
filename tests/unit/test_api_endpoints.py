@@ -1,5 +1,4 @@
 from app.crud.base import CRUDBase
-from app.crud.crud_entry import CRUDToDoEntry
 
 
 def test_root_endpoint(client):
